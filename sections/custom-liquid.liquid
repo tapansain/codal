@@ -13,7 +13,19 @@
 {%- endstyle -%}
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="section-{{ section.id }}-padding">
-    {{ section.settings.custom_liquid }}
+    <div class="page-width tp-custom-sections">
+      <div class="tp-custom-inner-container">
+        <h3 class="tp-accordion-header" >
+          {{ section.settings.heading }}
+          <span class="tp-pdf-toggle-icon tp-minus">-</span>
+          <span class="tp-pdf-toggle-icon tp-plus">+</span>
+        </h3>
+         <div class="tp-pdf-accordion-body">
+          {{ section.settings.custom_liquid }}   
+        </div>  
+      </div>
+    
+    </div>
   </div>
 </div>
 
@@ -21,8 +33,13 @@
 {
   "name": "t:sections.custom-liquid.name",
   "tag": "section",
-  "class": "section",
+  "class": "section ",
   "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
     {
       "type": "liquid",
       "id": "custom_liquid",
@@ -67,3 +84,16 @@
   ]
 }
 {% endschema %}
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.tp-accordion-header').forEach(function(header) {
+      header.addEventListener('click', function () {
+        const parent = this.closest('.tp-custom-inner-container');
+        parent.classList.toggle('close');
+      });
+    });
+  });
+</script>
+
